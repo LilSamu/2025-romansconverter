@@ -1,0 +1,11 @@
+{
+  "name": "romans-converter",
+  "version": "1.0.0",
+  "scripts": {
+    "test": "mocha-headless-chrome -f test.html --args no-sandbox"
+  },
+  "devDependencies": {
+    "mocha": "^10.0.0",
+    "mocha-headless-chrome": "^4.0.0"
+  }
+}
