@@ -1,0 +1,37 @@
+name: CD for Romans Converter
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    types: [opened, reopened]
+    branches: ["main"]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - run: echo "🚀 Job started"
+    - run: echo "🖥 Running on ${{ runner.os }} server"
+    - run: echo "The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
+
+    - uses: actions/checkout@v3
+
+    - name: Set-up Node
+      uses: actions/setup-node@v1
+      with:
+        node-version: 20.x
+
+    - name: Install Dependencies
+      run: |
+        npm install
+
+    - name: Run Tests
+      run: node_modules/.bin/mocha-headless-chrome -f test.html --args no-sandbox
+
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./
